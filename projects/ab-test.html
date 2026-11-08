@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discount Framing A/B Test | Sneha Gupta</title>
+  <meta name="description" content="Case study: an A/B test of ₹200 OFF versus 20% OFF on 20,000 synthetic users — SQL metrics, a two-proportion z-test, guardrail checks and a Power BI decision dashboard.">
+  <meta name="theme-color" content="#08172b">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Discount Framing A/B Test | Sneha Gupta">
+  <meta property="og:description" content="Case study: an A/B test of ₹200 OFF versus 20% OFF on 20,000 synthetic users — SQL metrics, a two-proportion z-test, guardrail checks and a Power BI decision dashboard.">
+  <meta name="twitter:card" content="summary">
+  <meta property="og:url" content="https://snehagupta-data.github.io/projects/ab-test.html">
+  <meta property="og:image" content="https://snehagupta-data.github.io/assets/images/projects/ab-test/ab-test-experiment-overview.webp">
+  <meta name="twitter:image" content="https://snehagupta-data.github.io/assets/images/projects/ab-test/ab-test-experiment-overview.webp">
+  <link rel="canonical" href="https://snehagupta-data.github.io/projects/ab-test.html">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1f3a'/%3E%3Ctext x='32' y='43' font-size='30' font-weight='700' text-anchor='middle' fill='%23f4b400' font-family='Arial'%3ESG%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <script>document.documentElement.classList.add("js")</script>
+</head>
+<body data-page="case" data-project="ab-test" data-root="../">
+  <div id="scroll-progress"></div>
+  <header id="site-nav"></header>
+
+  <main>
+    <!-- Header (title, stats, tools, GitHub button) is generated from the project entry in data/portfolio-data.js -->
+    <section id="case-hero" class="case-hero"></section>
+
+    <!-- ===== CASE-STUDY BODY: plain HTML. Edit, add or delete whole <section> blocks freely. ===== -->
+    <div class="container">
+
+      <section class="cs-section">
+        <div class="cs-head"><span class="cs-num">01</span><h2>Executive summary</h2></div>
+        <div class="prose"><p>Does the same ₹200 saving convert better when it's shown as “₹200 OFF” or as “20% OFF”? I ran a full A/B-test workflow on a <strong>synthetic 20,000-user experiment</strong> (10,000 per group, ₹1,000 cart): data validation, SQL metrics, a two-proportion z-test in Python, guardrail checks and a Power BI decision dashboard.</p><p><strong>20% OFF converted 9.80% against 8.19%</strong> — a lift of 1.61 percentage points (19.7% relative; 95% CI 0.82–2.40 pp; p &lt; 0.001) with no detectable change in complaints or returns. Because the data is synthetic and the guardrail tests are underpowered, the recommendation is to confirm it with a live experiment, not to roll it out.</p></div>
+      </section>
+
+      <section class="cs-section">
+        <div class="cs-head"><span class="cs-num">02</span><h2>Business problem</h2></div>
+        <div class="table-wrap"><table class="data"><thead><tr><th>Group</th><th>Offer shown</th><th>Role</th><th>Users</th></tr></thead><tbody><tr><td>A</td><td>₹200 OFF</td><td>Control</td><td>10,000</td></tr><tr><td>B</td><td>20% OFF</td><td>Treatment</td><td>10,000</td></tr></tbody></table></div>
+        <div class="split"><div class="panel"><h3>Question</h3><ul><li>On a ₹1,000 cart both offers save exactly ₹200, so the only difference is the framing.</li><li>Does the framing change purchase conversion — and does it do so without raising complaints or returns?</li></ul></div><div class="panel"><h3>Hypotheses</h3><ul><li>H0: conversion in A equals conversion in B</li><li>H1: conversion differs (two-sided), α = 0.05</li><li>Primary metric: purchase conversion. Guardrails: complaint rate and return rate among purchasers.</li></ul></div></div>
+      </section>
+
+      <section class="cs-section">
+        <div class="cs-head"><span class="cs-num">03</span><h2>Dataset</h2></div>
+        <div class="table-wrap"><table class="data"><thead><tr><th>Column</th><th>Meaning</th></tr></thead><tbody><tr><td>User_ID</td><td>Unique user (20,000 rows, no duplicates, no missing values)</td></tr><tr><td>Group / Offer</td><td>A = ₹200 OFF (control), B = 20% OFF (treatment)</td></tr><tr><td>Cart_Value</td><td>₹1,000 for every user</td></tr><tr><td>Purchased / Order_Value</td><td>1 if the user bought; ₹800 per order (₹1,000 minus the ₹200 saving), 0 otherwise</td></tr><tr><td>Complaint / Returned</td><td>Recorded for purchasers only</td></tr></tbody></table></div>
+        <p class="note"><strong>Dataset note:</strong> this is a synthetic dataset created for portfolio practice. It does not represent any real company or real experiment, and the effect it shows is a property of the generated data.</p>
+      </section>
+
+      <section class="cs-section">
+        <div class="cs-head"><span class="cs-num">04</span><h2>Data validation</h2></div>
+        <div class="prose"><p>Before any metric was calculated, eight business rules were checked in SQL and in the notebook — each expected to return zero violating rows: no order value without a purchase, every purchase worth exactly ₹800, complaints and returns only among purchasers, and the right offer in each group.</p><p>Users are unique, nothing is missing, and the groups are balanced at 10,000 each, so there is no sample-ratio problem to correct for.</p></div>
+      </section>
+
+      <section class="cs-section">
+        <div class="cs-head"><span class="cs-num">05</span><h2>Experiment design</h2></div>
+        <div class="table-wrap"><table class="data"><thead><tr><th>Role</th><th>Metric</th><th>Definition</th></tr></thead><tbody><tr><td>Primary</td><td>Purchase conversion</td><td>Purchasers ÷ all users in the group</td></tr><tr><td>Guardrail</td><td>Complaint rate</td><td>Complaints ÷ purchasers (819 in A, 980 in B)</td></tr><tr><td>Guardrail</td><td>Return rate</td><td>Returned orders ÷ purchasers</td></tr><tr><td>Sanity check</td><td>Average order value</td><td>₹800 in both groups by design — a check, not a result</td></tr></tbody></table></div>
+        <p class="note">Test: two-proportion z-test, two-sided, α = 0.05; the confidence interval uses the unpooled standard error.</p>
+      </section>
+
+      <section class="cs-section">
+        <div class="cs-head"><span class="cs-num">06</span><h2>Analytical approach</h2></div>
+        <ul class="flow"><li>Validate data</li><li>SQL metrics (PostgreSQL)</li><li>Python cross-check (SQLite + pandas)</li><li>Z-test and 95% CI</li><li>Guardrail tests</li><li>Business impact</li><li>Decision dashboard</li></ul>
+      </section>
+
+      <section class="cs-section">
+        <div class="cs-head"><span class="cs-num">07</span><h2>Key findings</h2></div>
+        <div class="table-wrap"><table class="data"><thead><tr><th>Metric</th><th>A · ₹200 OFF</th><th>B · 20% OFF</th><th>Difference</th><th>95% CI</th><th>p-value</th><th>Significant</th></tr></thead><tbody><tr><td>Purchase conversion</td><td>8.19%</td><td>9.80%</td><td>+1.61 pp</td><td>[0.82, 2.40]</td><td>0.000069</td><td>Yes</td></tr><tr><td>Complaint rate</td><td>2.44%</td><td>2.65%</td><td>+0.21 pp</td><td>[−1.25, 1.67]</td><td>0.778</td><td>No</td></tr><tr><td>Return rate</td><td>5.49%</td><td>5.31%</td><td>−0.19 pp</td><td>[−2.29, 1.91]</td><td>0.860</td><td>No</td></tr></tbody></table></div>
+        <div class="insights"><div class="insight insight--good"><small>Strength</small><strong>20% OFF lifts conversion by 19.7% relative:</strong> 980 purchasers against 819 out of 10,000 users each (z = 3.98). The whole confidence interval sits above zero.</div><div class="insight"><small>Finding</small><strong>Estimated impact per 10,000 users: about 161 extra purchases,</strong> roughly ₹128,800 of extra order value (range ≈ ₹65,400–₹192,200). This is order value, not profit.</div><div class="insight"><small>Watch</small><strong>“No evidence of harm” is not “evidence of no harm.”</strong> With about 900 purchasers per group, the guardrail tests could only detect differences of roughly 2.0 pp (complaints) and 3.0 pp (returns) with 80% power; the upper confidence bounds are +1.67 pp and +1.91 pp.</div><div class="insight"><small>Finding</small><strong>The primary result survives a stricter threshold:</strong> with three tests, a Bonferroni-adjusted α of 0.017 is still cleared by p = 0.000069.</div></div>
+      </section>
+
+      <section class="cs-section">
+        <div class="cs-head"><span class="cs-num">08</span><h2>Business recommendations</h2></div>
+        <div class="split"><div class="panel"><h3>Decision</h3><ul><li>Prefer the 20% OFF framing for ₹1,000-cart offers — but confirm with a live experiment before any rollout.</li><li>Report extra order value as an upper bound: profit depends on margin, and both groups give the same ₹200 discount.</li></ul></div><div class="panel"><h3>Next experiments</h3><ul><li>Repeat at other cart values (₹500, ₹2,000, ₹5,000), where a ₹200 saving and a 20% saving are no longer the same amount.</li><li>Run the live test with enough users to make the complaint and return guardrails informative.</li><li>Track contribution margin per user, not just conversion.</li></ul></div></div>
+      </section>
+
+      <section class="cs-section">
+        <div class="cs-head"><span class="cs-num">09</span><h2>Query showcase</h2></div>
+        <div class="prose"><p>The primary metric in SQL, and the z-test in Python — the same number from two directions:</p></div>
+        <div class="code-block"><div class="code-head"><span>01_ab_test_analysis_postgres.sql · Primary metric: purchase conversion by group</span><button class="copy-btn" type="button">Copy</button></div><pre><code>SELECT
+    group_name,
+    offer,
+    COUNT(*)       AS users,
+    SUM(purchased) AS purchases,
+    ROUND(100.0 * SUM(purchased) / COUNT(*), 2) AS conversion_rate_pct
+FROM ab_test
+GROUP BY group_name, offer
+ORDER BY group_name;</code></pre></div>
+        <div class="code-block"><div class="code-head"><span>Ecommerce_Discount_AB_Test.ipynb · Two-proportion z-test</span><button class="copy-btn" type="button">Copy</button></div><pre><code>from statsmodels.stats.proportion import proportions_ztest
+
+count = [x_B, x_A]   # purchasers in B, then A
+nobs = [n_B, n_A]    # users in B, then A
+
+z_stat, p_value = proportions_ztest(count, nobs, alternative=&quot;two-sided&quot;)
+print(f&quot;Z-statistic: {z_stat:.4f}&quot;)
+print(f&quot;P-value: {p_value:.6f}&quot;)</code></pre></div>
+      </section>
+
+      <section class="cs-section">
+        <div class="cs-head"><span class="cs-num">10</span><h2>Dashboard showcase</h2></div>
+        <div class="prose"><p>A four-page Power BI report: a home page, the experiment overview, the guardrail checks and the business decision. Click any screenshot to enlarge.</p></div>
+        <div class="gallery"><figure class="shot shot--wide"><img src="../assets/images/projects/ab-test/ab-test-experiment-overview.webp" alt="Experiment overview dashboard" width="1600" height="925" loading="lazy" data-zoom><figcaption><strong>Experiment Overview</strong>Conversion for each offer, absolute and relative lift, z-statistic, p-value and the 95% confidence interval.</figcaption></figure><figure class="shot"><img src="../assets/images/projects/ab-test/ab-test-guardrails.webp" alt="Guardrail metrics dashboard" width="1600" height="925" loading="lazy" data-zoom><figcaption><strong>Guardrails</strong>Complaint and return rates among purchasers, with their tests.</figcaption></figure><figure class="shot"><img src="../assets/images/projects/ab-test/ab-test-business-decision.webp" alt="Business decision dashboard" width="1600" height="925" loading="lazy" data-zoom><figcaption><strong>Business Decision</strong>Estimated impact per 10,000 users and a pass/fail decision scorecard.</figcaption></figure><figure class="shot"><img src="../assets/images/projects/ab-test/ab-test-home.webp" alt="A/B test dashboard home page" width="1600" height="925" loading="lazy" data-zoom><figcaption><strong>Home</strong>Project context and navigation.</figcaption></figure></div>
+      </section>
+
+      <section class="cs-section">
+        <div class="cs-head"><span class="cs-num">11</span><h2>Technical implementation</h2></div>
+        <div class="table-wrap"><table class="data"><thead><tr><th>Tool</th><th>Used for</th></tr></thead><tbody><tr><td>PostgreSQL</td><td>Table setup and the full metric script (00_setup, 01_analysis)</td></tr><tr><td>SQLite + Python</td><td>The same metrics run from the notebook (sqlite3 + pandas)</td></tr><tr><td>statsmodels / NumPy</td><td>Two-proportion z-tests and confidence intervals</td></tr><tr><td>Power BI</td><td>Four-page decision dashboard</td></tr></tbody></table></div>
+      </section>
+
+      <section class="cs-section">
+        <div class="cs-head"><span class="cs-num">12</span><h2>Limitations &amp; assumptions</h2></div>
+        <div class="panel"><h3>Worth keeping in mind</h3><ul><li>The data is <strong>synthetic</strong>. The lift is a property of the generated data, so this project demonstrates the method, not how real shoppers react to framing.</li><li>Both offers are worth the same ₹200 only at a ₹1,000 cart. The result says nothing about other basket sizes.</li><li>The guardrail tests are underpowered: not finding a difference does not rule out a meaningful increase in complaints or returns.</li><li>Every order is ₹800 by design, so there is no revenue-per-user or margin analysis, and “extra order value” is not profit.</li><li>There was no real randomisation, novelty-effect or seasonality analysis, as there would be in a live test.</li></ul></div>
+      </section>
+
+      <section class="cs-section">
+        <div class="cs-head"><span class="cs-num">13</span><h2>Explore the code</h2></div>
+        <div class="prose"><p>The repository holds the PostgreSQL scripts, the full notebook, the dataset, the Power BI file with a PDF export, and every dashboard page as an image.</p></div>
+        <div class="file-list"><a href="https://github.com/snehagupta-data/ecommerce-discount-ab-test/tree/main/sql" target="_blank" rel="noopener noreferrer"><span>sql/<small>PostgreSQL setup and analysis scripts</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a><a href="https://github.com/snehagupta-data/ecommerce-discount-ab-test/tree/main/notebooks" target="_blank" rel="noopener noreferrer"><span>notebooks/<small>Validation, SQLite SQL and statistical tests</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a><a href="https://github.com/snehagupta-data/ecommerce-discount-ab-test/tree/main/data" target="_blank" rel="noopener noreferrer"><span>data/<small>The 20,000-row synthetic CSV</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a><a href="https://github.com/snehagupta-data/ecommerce-discount-ab-test/tree/main/dashboard" target="_blank" rel="noopener noreferrer"><span>dashboard/<small>Power BI file and PDF export</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a><a href="https://github.com/snehagupta-data/ecommerce-discount-ab-test/tree/main/images" target="_blank" rel="noopener noreferrer"><span>images/<small>Dashboard page images</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></div>
+      </section>
+    </div>
+  </main>
+
+  <nav id="case-pager" class="pager" aria-label="Next project"></nav>
+  <footer id="site-footer"></footer>
+
+  <script src="../data/portfolio-data.js"></script>
+  <script src="../js/script.js"></script>
+</body>
+</html>

@@ -40,7 +40,7 @@ const portfolioData = {
   about: {
     greeting: "Hello, I'm **Sneha**!",
     paragraphs: [
-      "I'm a final-year **Data Science student** targeting Data Analyst / BI Analyst roles. Most of what I know comes from building and shipping full projects, not just courses: a lending-risk dashboard, an e-commerce profitability study, a hospital operations report, a 100,000-order SQL database.",
+      "I'm a final-year **Data Science student** targeting Data Analyst / BI Analyst roles. Most of what I know comes from building and shipping full projects, not just courses: a lending-risk dashboard, an e-commerce profitability study, a discount-framing A/B test, a 100,000-order SQL database.",
       "I like problems where the numbers argue with the story — **revenue up but profit flat**, or a loan book that looks healthy until you split it by product. My usual route is PostgreSQL for the digging, Python for deeper checks, and Power BI to turn it into something a non-analyst can use.",
       "I care about the write-up as much as the query. Each project here says what the question was, what the data is, and what I'd recommend — and says plainly when a dataset is **synthetic**."
     ],
@@ -62,18 +62,26 @@ const portfolioData = {
     { group: "**Data Analytic** Tools", items: [
       { name: "Microsoft Excel", icon: "excel.webp" },
       { name: "Google Sheets", icon: "google_sheet.webp" },
+      { name: "PostgreSQL", icon: "postgresql.webp" },
+      { name: "MySQL", icon: "mysql.webp" },
       { name: "MongoDB", icon: "mongodb.webp" },
-      { name: "Jupyter Notebook", icon: "jupyter.webp" }
+      { name: "Jupyter Notebook", icon: "jupyter.webp" },
+      { name: "Google Colab", icon: "colab.webp" },
+      { name: "Pandas", icon: "pandas.webp" },
+      { name: "NumPy", icon: "numpy.webp" },
+      { name: "SciPy", icon: "scipy.webp" }
     ]},
-    { group: "**Data Visualization** Tools", items: [
-      { name: "Power BI", icon: "power_bi.webp" },
+    { group: "**Data Visualization** & BI", items: [
+      { name: "Power BI (DAX, Power Query)", icon: "power_bi.webp" },
+      { name: "Tableau", icon: "tableau.webp" },
       { name: "Looker Studio", icon: "looker.webp" },
       { name: "Matplotlib", icon: "matplotlib.webp" },
       { name: "Seaborn", icon: "seaborn.webp" }
     ]},
     { group: "**Data Analytic** Methods", list: [
       "Data Cleaning", "Exploratory Data Analysis (EDA)", "KPI Analysis", "Time Series Analysis",
-      "Dashboard Design", "Statistics", "A/B Testing", "Business Analysis"
+      "Dashboard Design", "Statistics", "Hypothesis Testing", "A/B Testing",
+      "RFM & Cohort Analysis", "Data Modeling (Star Schema)"
     ]}
   ],
 
@@ -102,7 +110,7 @@ const portfolioData = {
        description 1–2 sentences
        stats       up to 3 verified numbers  [{ value, label }]
        cardImage / cardImageAlt   original cover art shown on project CARDS
-                   (homepage + All Projects grid) — never a dashboard screenshot
+                   (homepage + All Projects grid) — now the real dashboard screenshot where one exists
        image / imageAlt   the real dashboard/cover shown on the CASE-STUDY page
                    hero — contained in a frame, never cropped
        domain      "finance" | "ecommerce" | "healthcare" | "sql" — frame icon
@@ -128,15 +136,15 @@ const portfolioData = {
       category: "E-commerce Analytics",
       type: "SQL + Python + Power BI",
       tags: ["SQL", "Python", "Power BI", "E-commerce"],
-      tools: ["PostgreSQL", "Python", "Pandas", "Power BI", "DAX"],
+      tools: ["PostgreSQL", "Python", "Pandas", "SciPy", "Power BI", "DAX"],
       description: "Why isn't profit growing as fast as sales? A synthetic 12-table Indian marketplace analysed through discounting, returns, customer retention and delivery — from PostgreSQL to a Python notebook to an 8-page Power BI report.",
       stats: [
         { value: "₹1.75bn", label: "revenue" },
         { value: "12.33%", label: "profit margin" },
-        { value: "43.90%", label: "YoY growth" }
+        { value: "12.8% → 12.1%", label: "margin, 2022 → 2025" }
       ],
-      cardImage: "assets/images/projects/shopkart/shopkart-cover.svg",
-      cardImageAlt: "ShopKart India — editorial cover for an e-commerce profitability analytics case study",
+      cardImage: "assets/images/projects/shopkart/shopkart-profitability.webp",
+      cardImageAlt: "ShopKart India Power BI profitability intelligence dashboard",
       image: "assets/images/projects/shopkart/shopkart-profitability.webp",
       imageAlt: "ShopKart India profitability intelligence dashboard",
       github: "https://github.com/snehagupta-data/shopkart-india-ecommerce-analytics",
@@ -153,14 +161,14 @@ const portfolioData = {
       type: "SQL + Power BI dashboard",
       tags: ["SQL", "Power BI", "Finance"],
       tools: ["PostgreSQL", "Power BI", "DAX", "Power Query"],
-      description: "Risk and profitability analysis of a fictional multi-segment lender: a PostgreSQL star schema, seven SQL analysis sections and a multi-page Power BI dashboard on defaults, customer quality and branch performance.",
+      description: "Risk analysis of a fictional multi-segment lender: a PostgreSQL star schema, seven SQL analysis sections and a multi-page Power BI dashboard on defaults, customer quality and branch performance.",
       stats: [
         { value: "4,000", label: "loans analysed" },
         { value: "₹7.11bn", label: "loan book" },
-        { value: "9.2%", label: "default rate" }
+        { value: "9.2%", label: "installment default rate" }
       ],
-      cardImage: "assets/images/projects/lendx/lendx-cover.svg",
-      cardImageAlt: "LendX Finance — editorial cover for a loan portfolio risk analytics case study",
+      cardImage: "assets/images/projects/lendx/lendx-executive-overview.webp",
+      cardImageAlt: "LendX Finance Power BI executive overview dashboard",
       image: "assets/images/projects/lendx/lendx-executive-overview.webp",
       imageAlt: "LendX Finance Power BI executive overview dashboard",
       github: "https://github.com/snehagupta-data/LendX-Finance-Loan-Portfolio-Performance-Risk-Analytics",
@@ -169,26 +177,26 @@ const portfolioData = {
       visible: true
     },
     {
-      id: "hospital-analysis",
-      domain: "healthcare",
-      title: "Hospital Analysis Dashboard",
-      subtitle: "Patient flow, revenue and inventory in one report",
-      category: "Healthcare Analytics",
-      type: "Power BI dashboard",
-      tags: ["Power BI", "Healthcare"],
-      tools: ["Power BI", "DAX", "Power Query", "Star Schema"],
-      description: "A five-page Power BI report that brings patients, billing, doctors, rooms and pharmacy stock into one model to surface discharge delays, revenue concentration, doctor workload and medicine stock risk.",
+      id: "ab-test",
+      domain: "ecommerce",
+      title: "Discount Framing A/B Test",
+      subtitle: "₹200 OFF vs 20% OFF on a ₹1,000 cart",
+      category: "Experimentation & A/B Testing",
+      type: "SQL + Python + Power BI",
+      tags: ["SQL", "Python", "Power BI", "E-commerce", "A/B Testing"],
+      tools: ["PostgreSQL", "SQLite", "Python", "statsmodels", "Power BI"],
+      description: "Does the same ₹200 saving convert better as “₹200 OFF” or “20% OFF”? A full experiment workflow on 20,000 synthetic users: validation, SQL metrics, a two-proportion z-test, guardrail checks and a decision dashboard.",
       stats: [
-        { value: "30", label: "patients" },
-        { value: "15", label: "doctors" },
-        { value: "₹714K", label: "total revenue" }
+        { value: "20,000", label: "users tested" },
+        { value: "+1.61 pp", label: "conversion lift" },
+        { value: "p < 0.001", label: "significance" }
       ],
-      cardImage: "assets/images/projects/hospital-analysis/hospital-analysis-cover.svg",
-      cardImageAlt: "Hospital Analysis Dashboard — editorial cover for a healthcare operations analytics case study",
-      image: "assets/images/projects/hospital-analysis/hospital-overview.webp",
-      imageAlt: "Hospital analytics Power BI overview page",
-      github: "https://github.com/snehagupta-data/hospital-analysis-dashboard",
-      page: "projects/hospital-analysis.html",
+      cardImage: "assets/images/projects/ab-test/ab-test-experiment-overview.webp",
+      cardImageAlt: "A/B test dashboard comparing conversion for ₹200 OFF versus 20% OFF",
+      image: "assets/images/projects/ab-test/ab-test-experiment-overview.webp",
+      imageAlt: "A/B test experiment overview dashboard",
+      github: "https://github.com/snehagupta-data/ecommerce-discount-ab-test",
+      page: "projects/ab-test.html",
       featured: true,
       visible: true
     },
@@ -213,6 +221,30 @@ const portfolioData = {
       imageAlt: "Customer Transaction & Revenue Analytics project cover",
       github: "https://github.com/snehagupta-data/Customer-Transaction-Revenue-Analytics-System-using-SQL",
       page: "projects/customer-transaction.html",
+      featured: true,
+      visible: true
+    },
+    {
+      id: "hospital-analysis",
+      domain: "healthcare",
+      title: "Hospital Analysis Dashboard",
+      subtitle: "Patient flow, revenue and inventory in one report",
+      category: "Healthcare Analytics",
+      type: "Power BI dashboard · tutorial-based",
+      tags: ["Power BI", "Healthcare"],
+      tools: ["Power BI", "DAX", "Power Query", "Data Model"],
+      description: "Tutorial-based practice project. A five-page Power BI report that brings patients, billing, doctors, rooms and pharmacy stock into one model — built while following a guided tutorial to practise data modelling and report design.",
+      stats: [
+        { value: "30", label: "patients" },
+        { value: "15", label: "doctors" },
+        { value: "₹714K", label: "total revenue" }
+      ],
+      cardImage: "assets/images/projects/hospital-analysis/hospital-overview.webp",
+      cardImageAlt: "Hospital analytics Power BI overview page",
+      image: "assets/images/projects/hospital-analysis/hospital-overview.webp",
+      imageAlt: "Hospital analytics Power BI overview page",
+      github: "https://github.com/snehagupta-data/hospital-analysis-dashboard",
+      page: "projects/hospital-analysis.html",
       featured: false,
       visible: true
     }
@@ -241,5 +273,5 @@ const portfolioData = {
   ],
 
   /* Filter chips on projects.html. A chip only shows if at least one visible project has that tag. */
-  projectFilters: ["SQL", "Python", "Power BI", "Excel", "Finance", "E-commerce", "Healthcare"]
+  projectFilters: ["SQL", "Python", "Power BI", "Excel", "A/B Testing", "Finance", "E-commerce", "Healthcare"]
 };

@@ -373,3 +373,31 @@ table.data td:first-child { font-weight: 600; white-space: nowrap; }
   .pager-link strong { max-width: 90vw; white-space: normal; }
   .footer-inner { flex-direction: column; align-items: flex-start; }
 }
+
+
+/* ===== PROJECT CARD IMAGE FIT (v2) =====
+   Dashboard screenshots now sit edge-to-edge in a 16:9 browser-style frame, so the whole
+   dashboard is visible with no thick letterbox bands (still contain-fit, never cropped). */
+.project-card .frame-body { padding: 0; background: #0b1b30; }
+.project-card--featured .project-card__media {
+  flex: 0 0 46%; align-self: center; margin: 22px 22px 22px 0;
+  border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 14px 34px rgba(0, 0, 0, .35);
+}
+.project-card--featured .frame-body, .project-card--grid .frame-body { flex: none; aspect-ratio: 16 / 9; }
+.project-card--grid .project-card__media { aspect-ratio: auto; }
+@media (max-width: 1100px) {
+  .project-card--featured .project-card__media { flex-basis: 42%; margin-right: 16px; }
+}
+@media (max-width: 900px) {
+  .project-card--featured .project-card__media { order: 0; flex: none; aspect-ratio: auto; margin: 0; border: 0; border-radius: 0; box-shadow: none; align-self: stretch; }
+}
+
+/* Flagship ribbon: on cards where the screenshot is on top (grid, and featured on narrow screens) it sits in the frame's title bar instead of covering the dashboard */
+.project-card--grid .flagship-ribbon { top: 3px; left: 54px; padding: 3px 10px; font-size: .64rem; border-radius: 5px; box-shadow: none; }
+.project-card--flagship.project-card--grid .project-card__body { padding-top: 22px; }
+@media (max-width: 900px) {
+  .project-card--featured .flagship-ribbon { top: 3px; left: 54px; padding: 3px 10px; font-size: .64rem; border-radius: 5px; box-shadow: none; }
+  .project-card--flagship.project-card--featured .project-card__body { padding-top: 24px; }
+}
+.project-card--flagship.project-card--grid .frame-label { display: none; }
+@media (max-width: 900px) { .project-card--flagship.project-card--featured .frame-label { display: none; } }

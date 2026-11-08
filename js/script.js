@@ -199,7 +199,7 @@
     $("#projects").innerHTML = `
       <div class="container">
         ${sectionTitle("**Featured** Projects")}
-        <p class="section-lead">End-to-end analytics projects built around real business questions. Screenshots and figures come from the projects themselves.</p>
+        <p class="section-lead">End-to-end analytics projects built around realistic business questions. Datasets are synthetic and labelled as such; screenshots and figures come from the projects themselves.</p>
         <div class="project-list">${featured.map((x) => projectCard(x, "featured")).join("")}</div>
         <div class="section-more">${button("View all projects", "projects.html", "filled", { after: ICONS.right })}</div>
       </div>`;

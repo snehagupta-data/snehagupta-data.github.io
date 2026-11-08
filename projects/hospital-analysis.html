@@ -10,6 +10,10 @@
   <meta property="og:title" content="Hospital Analysis Dashboard | Sneha Gupta">
   <meta property="og:description" content="Case study: a five-page Power BI report on patient flow, revenue, doctor workload and medicine stock.">
   <meta name="twitter:card" content="summary">
+  <meta property="og:url" content="https://snehagupta-data.github.io/projects/hospital-analysis.html">
+  <meta property="og:image" content="https://snehagupta-data.github.io/assets/images/projects/hospital-analysis/hospital-overview.webp">
+  <meta name="twitter:image" content="https://snehagupta-data.github.io/assets/images/projects/hospital-analysis/hospital-overview.webp">
+  <link rel="canonical" href="https://snehagupta-data.github.io/projects/hospital-analysis.html">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1f3a'/%3E%3Ctext x='32' y='43' font-size='30' font-weight='700' text-anchor='middle' fill='%23f4b400' font-family='Arial'%3ESG%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,7 +34,7 @@
 
       <section class="cs-section">
         <div class="cs-head"><span class="cs-num">01</span><h2>Executive summary</h2></div>
-        <div class="prose"><p>Hospitals generate large amounts of data, but decisions are often reactive. I brought <strong>patients, billing, doctors, rooms and pharmacy stock</strong> into one Power BI model and built a five-page dashboard so operational problems — concentration risk, discharge delays, stock risk — show up before they hurt.</p><p>The clearest finding is a revenue-concentration risk: roughly 60% of the hospital's ₹714K revenue comes from surgery alone, while room revenue looks under-used by comparison.</p></div>
+        <div class="prose"><p><strong>Tutorial-based practice project.</strong> I built this report while following a guided tutorial, to practise Power BI data modelling and report design — it is practice work, not an independent analysis.</p><p>Hospitals generate large amounts of data, but decisions are often reactive. The report brings <strong>patients, billing, doctors, rooms and pharmacy stock</strong> into one Power BI model across five pages so operational problems — concentration risk, discharge delays, stock risk — can be seen early.</p><p>The clearest pattern in the data is revenue concentration: roughly 60% of the ₹714K revenue comes from surgery, while room revenue looks under-used by comparison.</p></div>
       </section>
       <section class="cs-section">
         <div class="cs-head"><span class="cs-num">02</span><h2>Business problem</h2></div>
@@ -39,7 +43,7 @@
       </section>
       <section class="cs-section">
         <div class="cs-head"><span class="cs-num">03</span><h2>Dataset</h2></div>
-        <div class="prose"><p>Seven data tables feeding a star schema, built from the hospital's original Excel exports.</p></div>
+        <div class="prose"><p>Six consolidated tables plus a Calendar table feed the Power BI model, built from the Excel exports that came with the tutorial.</p></div>
         <p class="note"><strong>A note on scale:</strong> the dataset is small (30 patients, 15 doctors), so the value of this project is in the model and dashboard design rather than in statistically strong conclusions.</p>
       </section>
       <section class="cs-section">
@@ -48,7 +52,7 @@
       </section>
       <section class="cs-section">
         <div class="cs-head"><span class="cs-num">05</span><h2>Data model</h2></div>
-        <div class="gallery"><figure class="shot shot--wide"><img src="../assets/images/projects/hospital-analysis/hospital-data-model.webp" alt="Power BI data model" width="1229" height="731" loading="lazy" data-zoom><figcaption><strong>Power BI data model</strong>Star schema connecting patients, doctors, billing, rooms and medicine data.</figcaption></figure></div>
+        <div class="gallery"><figure class="shot shot--wide"><img src="../assets/images/projects/hospital-analysis/hospital-data-model.webp" alt="Power BI data model" width="1229" height="731" loading="lazy" data-zoom><figcaption><strong>Power BI data model</strong>Data model connecting patients, doctors, billing, rooms and medicine data.</figcaption></figure></div>
       </section>
       <section class="cs-section">
         <div class="cs-head"><span class="cs-num">06</span><h2>Analytical approach</h2></div>
@@ -75,7 +79,7 @@
       </section>
       <section class="cs-section">
         <div class="cs-head"><span class="cs-num">11</span><h2>Limitations &amp; assumptions</h2></div>
-<div class="panel"><h3>Worth keeping in mind</h3><ul><li>The dataset is small (30 patients, 15 doctors) — treat findings as illustrative of the approach, not as statistically robust conclusions.</li><li>No information is available on whether this reflects one hospital's real data or a prepared sample; figures are presented as given in the source files.</li><li>No causal analysis was performed — the discharge dip and ICU occupancy are observations, not diagnosed causes.</li></ul></div>
+        <div class="panel"><h3>Worth keeping in mind</h3><ul><li>This is a <strong>tutorial-based</strong> project: the data and report design follow the guided build, so it demonstrates practice, not original analysis.</li><li>The dataset is small (30 patients, 15 doctors) — treat findings as illustrative of the approach, not as statistically robust conclusions. With so few patients, month-to-month movements such as the discharge dip are noise.</li><li>No causal analysis was performed — the discharge dip and ICU occupancy are observations, not diagnosed causes.</li></ul></div>
       </section>
       <section class="cs-section">
         <div class="cs-head"><span class="cs-num">12</span><h2>Explore the code</h2></div>

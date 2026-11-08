@@ -10,6 +10,10 @@
   <meta property="og:title" content="Customer Transaction &amp; Revenue Analytics | Sneha Gupta">
   <meta property="og:description" content="Case study: an eleven-script PostgreSQL workflow on a five-table e-commerce database — revenue, customers, products and payments.">
   <meta name="twitter:card" content="summary">
+  <meta property="og:url" content="https://snehagupta-data.github.io/projects/customer-transaction.html">
+  <meta property="og:image" content="https://snehagupta-data.github.io/assets/images/profile/sneha.webp">
+  <meta name="twitter:image" content="https://snehagupta-data.github.io/assets/images/profile/sneha.webp">
+  <link rel="canonical" href="https://snehagupta-data.github.io/projects/customer-transaction.html">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1f3a'/%3E%3Ctext x='32' y='43' font-size='30' font-weight='700' text-anchor='middle' fill='%23f4b400' font-family='Arial'%3ESG%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,7 +34,7 @@
 
       <section class="cs-section">
         <div class="cs-head"><span class="cs-num">01</span><h2>Executive summary</h2></div>
-        <div class="prose"><p>A <strong>SQL-only analytics project</strong> on a simulated e-commerce database, run as eleven staged scripts — schema design, loading, validation, exploration, then revenue, customer, product and payment analysis, finishing with advanced window-function SQL and written insights.</p><p>There's no dashboard here on purpose: the point is what can be shown with well-structured PostgreSQL alone. The payment-health check below is one example of the kind of question the workflow answers.</p></div>
+        <div class="prose"><p>A <strong>SQL-only analytics project</strong> on a simulated e-commerce database, run as eleven staged scripts — schema design, loading, validation, exploration, then revenue, customer, product and payment analysis, finishing with advanced window-function SQL and written insights.</p><p>There's no dashboard here on purpose: the point is what can be shown with well-structured PostgreSQL alone. The headline results: revenue is flat at about ₹733M a year, October–December brings 43% of each year's revenue, just 94 of 500 products make up 80% of it, and about one payment in ten fails.</p></div>
       </section>
       <section class="cs-section">
         <div class="cs-head"><span class="cs-num">02</span><h2>Business problem</h2></div>
@@ -59,11 +63,12 @@
       <section class="cs-section">
         <div class="cs-head"><span class="cs-num">07</span><h2>Key findings</h2></div>
         <div class="table-wrap"><table class="data"><thead><tr><th>Payment status</th><th>Payments</th><th>Share of payments</th><th>Share of order value</th></tr></thead><tbody><tr><td>Success</td><td>85,026</td><td>85.03%</td><td>85.06%</td></tr><tr><td>Failed</td><td>9,910</td><td>9.91%</td><td>9.84%</td></tr><tr><td>Pending</td><td>5,064</td><td>5.06%</td><td>5.09%</td></tr></tbody></table></div>
-        <div class="insights"><div class="insight"><small>Watch</small><strong>Roughly one payment in ten fails</strong> (9.91% of payments, 9.84% of order value).</div><div class="insight"><small>Finding</small><strong>Failure rates are similar across every payment method</strong> (about 9.3–10.1%) — no single method stands out, a reasonable result for simulated data.</div><div class="insight"><small>Finding</small><strong>Pending payments hold about 5% of order value</strong> at any snapshot in time.</div></div>
+        <div class="table-wrap"><table class="data"><thead><tr><th>Year</th><th>Revenue</th><th>Orders</th><th>Change in revenue</th></tr></thead><tbody><tr><td>2022</td><td>₹733.8M</td><td>33,512</td><td>—</td></tr><tr><td>2023</td><td>₹731.2M</td><td>33,291</td><td>−0.4%</td></tr><tr><td>2024</td><td>₹736.9M</td><td>33,197</td><td>+0.8%</td></tr></tbody></table></div>
+        <div class="insights"><div class="insight insight--risk"><small>Risk</small><strong>Revenue is flat:</strong> ₹733.8M, ₹731.2M and ₹736.9M across 2022–2024, on about 33,000 orders a year — there is no growth to protect, only a base.</div><div class="insight"><small>Watch</small><strong>Roughly one payment in ten fails</strong> (9.91% of payments, ₹216.8M of order value). Rates are similar across methods — Wallet 9.3% to NetBanking and UPI 10.1% — so no method stands out, a reasonable result for simulated data. UPI carries the most failed value (₹88.5M) simply because it has the most volume.</div><div class="insight"><small>Watch</small><strong>October, November and December are about 14.5% of annual revenue each</strong> (43% in three months) against roughly 6% in a typical month.</div><div class="insight"><small>Finding</small><strong>Revenue is concentrated:</strong> 94 of 500 products (18.8%) generate 80% of revenue, and Electronics alone is 38.6%.</div><div class="insight insight--good"><small>Strength</small><strong>Returning customers are the business:</strong> 7,730 customers (83% of buyers) generate 98.5% of revenue, with ₹280K average lifetime spend against ₹21K for one-time buyers. Average order value is only about 5% higher (₹22.2K vs ₹21.1K), so the premium comes from frequency, not basket size.</div><div class="insight"><small>Finding</small><strong>669 customers (6.7%) never placed an order</strong> — a ready-made activation group.</div></div>
       </section>
       <section class="cs-section">
         <div class="cs-head"><span class="cs-num">08</span><h2>Business recommendations</h2></div>
-<div class="panel"><h3>If this were a live system</h3><ul><li>A consistently elevated failure rate on one payment method would be worth escalating to the payment gateway.</li><li>The revenue-at-risk query below could run as a recurring check rather than a one-off report.</li><li>Cohort retention and RFM segments could feed directly into a targeted re-engagement campaign for “At Risk” customers.</li></ul></div>
+        <div class="panel"><h3>If this were a live system</h3><ul><li>Revenue is flat while 43% of it lands in three months: plan stock, delivery capacity and payment-gateway load for October–December.</li><li>Roughly ₹217M of order value sits in failed payments. Retry logic and a fallback method at checkout are worth testing, and failure rate by method should be monitored for drift rather than judged on this snapshot.</li><li>Retention matters more than basket size: returning customers drive 98.5% of revenue, so cohort retention and RFM “At Risk” segments should feed a re-engagement campaign.</li><li>Focus inventory and promotion on the 94 products that carry 80% of revenue, and test activation offers on the 669 never-ordered customers.</li></ul></div>
       </section>
       <section class="cs-section">
         <div class="cs-head"><span class="cs-num">09</span><h2>Query showcase</h2></div>
@@ -85,7 +90,7 @@ ORDER BY revenue_at_risk DESC;</code></pre></div>
       </section>
       <section class="cs-section">
         <div class="cs-head"><span class="cs-num">11</span><h2>Limitations &amp; assumptions</h2></div>
-<div class="panel"><h3>Worth keeping in mind</h3><ul><li>The database is simulated; figures demonstrate SQL technique, not a real platform's transaction history.</li><li>No causal inference was performed — cohort and RFM patterns are descriptive, not diagnosed causes.</li><li>Payment-failure analysis is a snapshot of the loaded data, not a time-series of gateway incidents.</li></ul></div>
+        <div class="panel"><h3>Worth keeping in mind</h3><ul><li>The database is simulated; figures demonstrate SQL technique, not a real platform's transaction history. The flat yearly revenue and similar failure rates across methods are features of the synthetic data.</li><li>No causal inference was performed — cohort and RFM patterns are descriptive, not diagnosed causes.</li><li>Payment-failure analysis is a snapshot of the loaded data, not a time series of gateway incidents.</li><li>The headline numbers were recomputed from the source CSV files to double-check the SQL outputs.</li></ul></div>
       </section>
       <section class="cs-section">
         <div class="cs-head"><span class="cs-num">12</span><h2>Explore the code</h2></div>
