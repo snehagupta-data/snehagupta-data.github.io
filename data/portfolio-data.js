@@ -69,7 +69,6 @@ const portfolioData = {
     { group: "**Data Visualization** & BI", items: [
       { name: "Power BI (DAX, Power Query)", icon: "power_bi.webp" },
       { name: "Tableau", icon: "tableau.webp" },
-      { name: "Looker Studio", icon: "looker.webp" },
       { name: "Matplotlib", icon: "matplotlib.webp" },
       { name: "Seaborn", icon: "seaborn.webp" }
     ]},
@@ -84,13 +83,13 @@ const portfolioData = {
      Order: simulations first, Simplilearn certs after. Wording follows the resume.
      file = PDF in assets/pdf/. */
   certifications: [
-    { title: "Data Visualisation Simulation", issuer: "Tata Group · Forage", date: "Aug 2025",
+    { title: "Data Visualisation Simulation", issuer: "Tata Group · Forage", date: "Aug 2025", badge: "T",
       note: "Framing a business scenario, choosing the right visuals, communicating insights.", file: "assets/pdf/data_visualisation.pdf" },
-    { title: "Data Analytics Job Simulation", issuer: "Deloitte · Forage", date: "Aug 2025",
+    { title: "Data Analytics Job Simulation", issuer: "Deloitte · Forage", date: "Aug 2025", badge: "D",
       note: "Data analysis and forensic technology tasks.", file: "assets/pdf/data_analytics.pdf" },
-    { title: "Power BI for Beginners", issuer: "Simplilearn", date: "Jan 2026",
+    { title: "Power BI for Beginners", issuer: "Simplilearn", date: "Jan 2026", badge: "S",
       note: "Data modeling, DAX basics and interactive dashboard creation.", file: "assets/pdf/power_bi.pdf" },
-    { title: "Introduction to SQL", issuer: "Simplilearn", date: "Feb 2026",
+    { title: "Introduction to SQL", issuer: "Simplilearn", date: "Feb 2026", badge: "S",
       note: "Querying, joins, filtering, aggregation and database concepts.", file: "assets/pdf/sql.pdf" }
   ],
 
@@ -241,7 +240,7 @@ const portfolioData = {
       github: "https://github.com/snehagupta-data/hospital-analysis-dashboard",
       page: "projects/hospital-analysis.html",
       featured: false,
-      visible: true
+      visible: false
     }
 
     /* ---------- TEMPLATE — copy, paste above (add a comma after the previous entry), edit ----------
