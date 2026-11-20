@@ -210,6 +210,7 @@
         <div class="cert-grid">
           ${D.certifications.map((c) => `
             <a class="cert-card reveal" href="${href(c.file)}" target="_blank" rel="noopener noreferrer">
+              ${c.badge ? `<span class="cert-badge" aria-hidden="true">${esc(c.badge)}</span>` : ""}
               <span class="cert-meta">${esc(c.issuer)} · ${esc(c.date)}</span>
               <h3>${esc(c.title)}</h3>
               <p>${esc(c.note)}</p>
@@ -229,7 +230,14 @@
             ${pill(ICONS.linkedin, p.linkedin.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, ""), p.linkedin)}
             ${pill(ICONS.github, p.github.replace(/^https?:\/\//, ""), p.github)}
           </div>
-          <h2 class="contact-tagline">Let's <span class="yellow">connect</span> and <span class="yellow">work together</span>!</h2>
+          <div class="contact-side">
+            <h2 class="contact-tagline">Let's <span class="yellow">connect</span> and <span class="yellow">work together</span>!</h2>
+            <p>${p.availability ? esc(p.availability) : ""}${p.availability && p.location ? " · " : ""}${esc(p.location)}</p>
+            <div class="contact-actions">
+              ${button("Download Resume", p.resume, "filled", { icon: ICONS.download, attrs: `download="${esc(p.resumeDownloadName)}"` })}
+              ${button("View Projects", "projects.html", "ghost", { after: ICONS.right })}
+            </div>
+          </div>
         </div>
       </div>`;
   }
