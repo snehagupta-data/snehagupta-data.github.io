@@ -30,7 +30,7 @@ const portfolioData = {
 
   /* ===== 2 · HERO ===== */
   hero: {
-    pill: "DATA · ANALYTICS · PROJECTS",
+    pill: "TURNING DATA INTO DECISIONS",
     nameLines: ["SNEHA", "GUPTA"],
     intro: "I dig into business questions with **SQL, Python and Power BI** — then build the dashboards and write-ups that show what I found.",
     photo: "assets/images/profile/sneha.webp"
