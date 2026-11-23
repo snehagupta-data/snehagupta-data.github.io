@@ -241,6 +241,47 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; }
 .contact-side p { color: var(--muted); font-size: 1.02rem; max-width: 46ch; }
 .contact-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 
+/* Contact form — 3 fields only: Name, Subject, Message. No email, no phone.
+   Messages go to Firestore (see js/contact-form.js), never to email. */
+.contact-form-wrap { margin-top: 48px; max-width: 720px; padding: clamp(22px, 4vw, 32px); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.contact-form-wrap h3 { font-size: 1.4rem; margin-bottom: 6px; }
+.contact-form-note { color: var(--muted); margin-bottom: 22px; max-width: 52ch; }
+.field { margin-bottom: 18px; }
+.field label { display: block; font-weight: 600; margin-bottom: 6px; }
+.field input, .field textarea { width: 100%; padding: 12px 14px; font: inherit; color: var(--text); background: var(--bg); border: 1px solid var(--line); border-radius: 10px; }
+.field textarea { resize: vertical; min-height: 120px; }
+.field input:focus, .field textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(244, 180, 0, .18); }
+.field input:disabled, .field textarea:disabled { opacity: .6; }
+.honeypot { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+.cf-status { margin-top: 14px; color: var(--muted); min-height: 1.4em; }
+.cf-status.cf-success { color: var(--green); }
+.cf-status.cf-error { color: var(--red); }
+
+/* Private inbox page (inbox.html) — not linked from the nav or footer. */
+.inbox-page { padding: clamp(28px, 5vw, 56px) 0 64px; }
+.inbox-wrap { max-width: 860px; }
+.inbox-back { color: var(--muted); font-weight: 600; }
+.inbox-back:hover { color: var(--gold); }
+.inbox-card { margin-top: 24px; padding: clamp(22px, 4vw, 32px); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.inbox-card h2 { font-size: 1.4rem; margin-bottom: 18px; }
+.inbox-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
+.inbox-head h2 { margin-bottom: 4px; }
+.inbox-meta { color: var(--muted); font-size: .95rem; }
+.inbox-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.inbox-empty, .inbox-loading { color: var(--muted); }
+.inbox-list { display: grid; gap: 16px; }
+.msg-card { padding: 20px; background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); }
+.msg-card.is-unread { border-color: rgba(244, 180, 0, .55); }
+.msg-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.msg-head h3 { font-size: 1.1rem; }
+.msg-meta { color: var(--muted); font-size: .9rem; margin-top: 2px; }
+.msg-new { flex: none; font-size: .72rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #111; background: var(--gold); border-radius: 30px; padding: 4px 10px; }
+.msg-body { margin-top: 12px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.msg-actions { display: flex; gap: 14px; margin-top: 14px; }
+.msg-actions button { background: none; border: none; padding: 0; color: var(--gold); font-weight: 600; font-size: .9rem; }
+.msg-actions button:hover { text-decoration: underline; }
+.msg-actions .msg-delete { color: var(--red); }
+
 /* ===== 11 · FOOTER ===== */
 .footer { border-top: 1px solid var(--line); background: linear-gradient(to top, rgba(244, 180, 0, .05), transparent); padding: 28px 0; color: var(--muted); font-size: .9rem; }
 .footer-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 28px; }

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Inbox — Sneha Gupta (Private)</title>
+  <meta name="description" content="Private inbox for messages sent from Sneha Gupta's portfolio contact form.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="inbox">
+  <main class="inbox-page">
+    <div class="container inbox-wrap">
+      <p><a class="inbox-back" href="index.html">← Back to portfolio</a></p>
+      <h1 class="page-title">My <span class="yellow">Inbox</span></h1>
+      <p class="section-lead">Messages from the contact form on my portfolio. Only I can see this page — sign in to read them. Nothing here is sent to email.</p>
+
+      <section id="inbox-login" class="inbox-card">
+        <h2>Sign in</h2>
+        <form id="login-form">
+          <div class="field">
+            <label for="login-email">Email</label>
+            <input id="login-email" name="email" type="email" placeholder="Your Firebase login email" required autocomplete="username">
+          </div>
+          <div class="field">
+            <label for="login-password">Password</label>
+            <input id="login-password" name="password" type="password" placeholder="Your inbox password" required autocomplete="current-password">
+          </div>
+          <button class="btn btn-filled" type="submit">Log in</button>
+          <p id="login-status" class="cf-status" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section id="inbox-main" class="inbox-card" hidden>
+        <div class="inbox-head">
+          <div>
+            <h2>Messages</h2>
+            <p class="inbox-meta"><span id="inbox-count">0 messages</span> · Signed in as <span id="inbox-user"></span></p>
+          </div>
+          <div class="inbox-actions">
+            <button id="inbox-refresh" class="btn btn-ghost" type="button">Refresh</button>
+            <button id="inbox-logout" class="btn btn-ghost" type="button">Log out</button>
+          </div>
+        </div>
+        <p id="inbox-empty" class="inbox-empty" hidden>No messages yet.</p>
+        <div id="inbox-list" class="inbox-list"></div>
+      </section>
+    </div>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/inbox.js"></script>
+</body>
+</html>

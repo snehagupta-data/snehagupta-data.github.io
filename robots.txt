@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 Disallow: /projects/future-project.html
+Disallow: /inbox.html
 Sitemap: https://snehagupta-data.github.io/sitemap.xml

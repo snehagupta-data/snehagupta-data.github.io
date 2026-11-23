@@ -239,6 +239,29 @@
             </div>
           </div>
         </div>
+        <div class="contact-form-wrap reveal">
+          <h3>Send me a message</h3>
+          <p class="contact-form-note">No email or phone needed — just your name, subject and message. I read these in my inbox on this site.</p>
+          <form id="contact-form" novalidate>
+            <div class="field">
+              <label for="cf-name">Name</label>
+              <input id="cf-name" name="name" type="text" placeholder="Your Name" required maxlength="80" autocomplete="name">
+            </div>
+            <div class="field">
+              <label for="cf-subject">Subject</label>
+              <input id="cf-subject" name="subject" type="text" placeholder="Subject" required maxlength="120">
+            </div>
+            <div class="field">
+              <label for="cf-message">Message</label>
+              <textarea id="cf-message" name="message" placeholder="Type your message here." required maxlength="2000" rows="5"></textarea>
+            </div>
+            <div class="field honeypot" aria-hidden="true">
+              <label>Leave this empty<input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+            </div>
+            <button class="btn btn-filled" type="submit">Send Message</button>
+            <p id="cf-status" class="cf-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
       </div>`;
   }
 
