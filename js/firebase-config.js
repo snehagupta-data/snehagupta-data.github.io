@@ -23,18 +23,17 @@
    Never put your inbox password in any file.
    ===================================================================== */
 
-window.FIREBASE_CONFIG = null;
-
-/* Example of what a filled-in config looks like (do NOT use these values):
+/* Live config — project "sneha-portfolio-inbox", created 23 Nov 2026.
+   Plan: Spark (free, $0/month). No billing, no card, Analytics OFF.
+   Firestore: production mode, asia-south1. Rules published from firestore.rules. */
 window.FIREBASE_CONFIG = {
-  apiKey: "AIzaSy...",
+  apiKey: "AIzaSyBq70HeOjawbndA4sTbh_AEaJe1MthlInU",
   authDomain: "sneha-portfolio-inbox.firebaseapp.com",
   projectId: "sneha-portfolio-inbox",
-  storageBucket: "sneha-portfolio-inbox.appspot.com",
-  messagingSenderId: "123456789012",
-  appId: "1:123456789012:web:abcdef123456"
+  storageBucket: "sneha-portfolio-inbox.firebasestorage.app",
+  messagingSenderId: "514945808459",
+  appId: "1:514945808459:web:fab5ad4c2de8abfe6ff5ce"
 };
-*/
 
 window.FIREBASE_CONFIGURED =
   !!window.FIREBASE_CONFIG && !!window.FIREBASE_CONFIG.projectId;
