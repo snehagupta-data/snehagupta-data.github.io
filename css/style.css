@@ -225,30 +225,30 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; }
 .cert-card:hover .cert-link svg { transform: translate(2px, -2px); }
 
 /* ===== 10 · CONTACT ===== */
-.contact-split { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(28px, 5vw, 70px); align-items: center; }
-.contact-list { display: grid; gap: 18px; }
+.contact-split { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(28px, 5vw, 70px); align-items: start; }
+.contact-list { display: grid; gap: 18px; align-content: start; }
+.contact-list .contact-actions { margin-top: 4px; }
 .contact-pill { display: flex; align-items: center; gap: 20px; padding: 14px 28px 14px 14px; border-radius: 100px; background: var(--navy); border: 1.5px solid rgba(244, 180, 0, .2); font-weight: 600; font-size: clamp(.95rem, 1.6vw, 1.15rem); overflow-wrap: anywhere; transition: transform .35s, border-color .3s, box-shadow .3s, color .3s; }
 .contact-pill:hover { transform: translateY(-4px); border-color: var(--gold); color: var(--gold); box-shadow: 0 14px 30px rgba(0, 0, 0, .45), 0 0 26px rgba(244, 180, 0, .16); }
 .contact-pill:hover .pill-icon { box-shadow: 0 0 16px rgba(244, 180, 0, .5); }
 .pill-icon { width: 52px; height: 52px; flex: none; border-radius: 50%; background: var(--gold); color: #111; display: grid; place-items: center; transition: box-shadow .3s; }
 .pill-icon svg { width: 24px; height: 24px; }
-.contact-tagline { font-size: clamp(2rem, 4.5vw, 3.2rem); font-weight: 700; line-height: 1.15; }
+.contact-tagline { font-size: clamp(1.45rem, 2.6vw, 1.9rem); font-weight: 700; line-height: 1.15; white-space: nowrap; }
 
 
-/* Contact right column: tagline + availability line + resume button, so the column is
-   no longer a lone headline over empty space. */
-.contact-side { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
-.contact-side p { color: var(--muted); font-size: 1.02rem; max-width: 46ch; }
+/* Contact right column: tagline (one line) + form, so both columns end
+   on the same line. Left column ends at Download Resume / View Projects. */
+.contact-side { display: flex; flex-direction: column; align-items: stretch; gap: 16px; }
 .contact-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 
 /* Contact form — 3 fields only: Name, Subject, Message. No email, no phone.
    Messages go to Firestore (see js/contact-form.js), never to email. */
-.contact-form-wrap { margin-top: 48px; max-width: 720px; padding: clamp(22px, 4vw, 32px); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
-.contact-form-wrap h3 { font-size: 1.4rem; margin-bottom: 22px; }
-.field { margin-bottom: 18px; }
+.contact-form-wrap { margin-top: 0; max-width: none; padding: clamp(18px, 3vw, 24px); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.contact-form-wrap h3 { font-size: 1.35rem; margin-bottom: 14px; }
+.field { margin-bottom: 12px; }
 .field label { display: block; font-weight: 600; margin-bottom: 6px; }
 .field input, .field textarea { width: 100%; padding: 12px 14px; font: inherit; color: var(--text); background: var(--bg); border: 1px solid var(--line); border-radius: 10px; }
-.field textarea { resize: vertical; min-height: 120px; }
+.field textarea { resize: vertical; min-height: 64px; }
 .field input:focus, .field textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(244, 180, 0, .18); }
 .field input:disabled, .field textarea:disabled { opacity: .6; }
 .honeypot { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
@@ -390,6 +390,7 @@ table.data td:first-child { font-weight: 600; white-space: nowrap; }
   .project-card--featured .project-card__media { flex-basis: 40%; }
 }
 @media (max-width: 900px) {
+  .contact-tagline { white-space: normal; }
   .hero-grid, .about-grid, .contact-split, .split, .case-hero__grid { grid-template-columns: 1fr; }
   .case-hero__visual { aspect-ratio: 16 / 10; }
   .hero-photo { order: -1; max-width: 300px; }
