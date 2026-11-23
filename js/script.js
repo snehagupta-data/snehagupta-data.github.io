@@ -241,7 +241,6 @@
         </div>
         <div class="contact-form-wrap reveal">
           <h3>Send me a message</h3>
-          <p class="contact-form-note">No email or phone needed — just your name, subject and message. I read these in my inbox on this site.</p>
           <form id="contact-form" novalidate>
             <div class="field">
               <label for="cf-name">Name</label>

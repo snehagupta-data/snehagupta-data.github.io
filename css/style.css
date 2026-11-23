@@ -244,8 +244,7 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; }
 /* Contact form — 3 fields only: Name, Subject, Message. No email, no phone.
    Messages go to Firestore (see js/contact-form.js), never to email. */
 .contact-form-wrap { margin-top: 48px; max-width: 720px; padding: clamp(22px, 4vw, 32px); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
-.contact-form-wrap h3 { font-size: 1.4rem; margin-bottom: 6px; }
-.contact-form-note { color: var(--muted); margin-bottom: 22px; max-width: 52ch; }
+.contact-form-wrap h3 { font-size: 1.4rem; margin-bottom: 22px; }
 .field { margin-bottom: 18px; }
 .field label { display: block; font-weight: 600; margin-bottom: 6px; }
 .field input, .field textarea { width: 100%; padding: 12px 14px; font: inherit; color: var(--text); background: var(--bg); border: 1px solid var(--line); border-radius: 10px; }
