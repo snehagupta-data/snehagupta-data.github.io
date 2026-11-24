@@ -101,13 +101,11 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; }
 .availability:hover { transform: translateY(-2px); border-color: rgba(76, 175, 80, .55); background: rgba(76, 175, 80, .12); box-shadow: 0 6px 20px rgba(76, 175, 80, .2); }
 .pulse { width: 9px; height: 9px; flex: none; border-radius: 50%; background: #4caf50; box-shadow: 0 0 8px rgba(76, 175, 80, .7); animation: pulse 2s infinite; }
 @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, .7); } 70% { box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); } 100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); } }
-.hero-photo { justify-self: center; width: 100%; max-width: 440px; }
+.hero-photo { justify-self: center; width: 100%; max-width: 550px; }
 .profile-frame {
-  aspect-ratio: 1; border-radius: 50%; overflow: hidden; background: var(--gold); border: clamp(8px, 1.5vw, 13px) solid #fff;
-  display: flex; align-items: flex-end; box-shadow: 0 10px 30px rgba(0, 0, 0, .35); transition: transform .5s cubic-bezier(.16, 1, .3, 1), box-shadow .5s;
+  background: transparent;
 }
-.profile-frame img { width: 100%; height: auto; }
-.profile-frame:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(0, 0, 0, .4), 0 0 24px rgba(244, 180, 0, .25); }
+.profile-frame img { display: block; width: 100%; max-width: 550px; height: auto; object-fit: contain; }
 /* Refined scroll-to-About indicator: small ring container, restrained idle nudge, stronger glow + downward shift on hover */
 .hero-scroll {
   position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%);
